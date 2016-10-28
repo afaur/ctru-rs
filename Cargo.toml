@@ -12,10 +12,11 @@ crate-type = ["rlib"]
 name = "ctru"
 
 [dependencies.ctru-sys]
-path = "ctru-sys"
+git = "https://github.com/FenrirWolf/ctru-sys"
 
 [dependencies.std]
-path = "std"
+git = "https://github.com/FenrirWolf/ctr-std"
+branch = "refactor"
 
 [dependencies.bitflags]
 version = "0.7.0"
