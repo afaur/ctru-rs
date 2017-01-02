@@ -113,7 +113,6 @@ use collections::Vec;
 
 use ffi::{OsStr, OsString};
 
-use self::platform::{is_sep_byte, is_verbatim_sep, MAIN_SEP_STR, parse_prefix};
 
 ////////////////////////////////////////////////////////////////////////////////
 // GENERAL NOTES
@@ -131,29 +130,6 @@ use self::platform::{is_sep_byte, is_verbatim_sep, MAIN_SEP_STR, parse_prefix};
 
 // The following modules give the most basic tools for parsing paths on various
 // platforms. The bulk of the code is devoted to parsing prefixes on Windows.
-
-#[cfg(unix)]
-mod platform {
-    use super::Prefix;
-    use ffi::OsStr;
-
-    #[inline]
-    pub fn is_sep_byte(b: u8) -> bool {
-        b == b'/'
-    }
-
-    #[inline]
-    pub fn is_verbatim_sep(b: u8) -> bool {
-        b == b'/'
-    }
-
-    pub fn parse_prefix(_: &OsStr) -> Option<Prefix> {
-        None
-    }
-
-    pub const MAIN_SEP_STR: &'static str = "/";
-    pub const MAIN_SEP: char = '/';
-}
 
 #[cfg(windows)]
 mod platform {
@@ -248,6 +224,30 @@ mod platform {
     pub const MAIN_SEP_STR: &'static str = "\\";
     pub const MAIN_SEP: char = '\\';
 }
+
+mod platform {
+    use super::Prefix;
+    use ffi::OsStr;
+
+    #[inline]
+    pub fn is_sep_byte(b: u8) -> bool {
+        b == b'/'
+    }
+
+    #[inline]
+    pub fn is_verbatim_sep(b: u8) -> bool {
+        b == b'/'
+    }
+
+    pub fn parse_prefix(_: &OsStr) -> Option<Prefix> {
+        None
+    }
+
+    pub const MAIN_SEP_STR: &'static str = "/";
+    pub const MAIN_SEP: char = '/';
+}
+
+use self::platform::{is_sep_byte, is_verbatim_sep, MAIN_SEP_STR, parse_prefix};
 
 ////////////////////////////////////////////////////////////////////////////////
 // Windows Prefixes

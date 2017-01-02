@@ -29,7 +29,7 @@ use core::str::next_code_point;
 
 use ascii::*;
 use collections::borrow::Cow;
-use rustc_unicode::char;
+use std_unicode::char;
 use core::fmt;
 use core::hash::{Hash, Hasher};
 use core::iter::FromIterator;
